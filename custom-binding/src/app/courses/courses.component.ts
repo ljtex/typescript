@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-courses',
@@ -60,12 +60,12 @@ export class CoursesComponent{
 
   onFilterRadioButtonChanged(data: string){
     this.courseCountRadioButton = data;
-    //console.log(this.courseCountRadioButton);
+    console.log(`parent received: ${this.courseCountRadioButton}`);
   }
 
   onSearchTextEntered(searchValue: string){
     this.searchText = searchValue;
-    //console.log(this.searchText);
+    console.log(`searchText: ${this.searchText}`);
   }
 
 }
