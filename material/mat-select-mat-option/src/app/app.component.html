@@ -1,0 +1,85 @@
+ <form [formGroup]="dashboardForm" (ngSubmit)="saveDashboard()">
+  <!-- Select dashboardValues -->
+    <mat-form-field floatLabel="always" class="dashboard-select">
+      <!--<mat-placeholder class="dashboard-select-placeholder">Please select an option</mat-placeholder> -->
+      <div><p>Please select an option</p></div>
+      <mat-select  [(ngModel)] = "selectedValues" #thisSelect [(value)]="selectedValues" (selectionChange)="selectionChange($event)" formControlName="dashboardValue" multiple>
+          <mat-option
+            [value]="displayDashboardValues[0]"
+            (click)="toggleAllSelection()">
+            {{ displayDashboardValues[0].viewValue }}
+          </mat-option>
+          <mat-divider></mat-divider>
+          <div *ngFor="let dashboardPosition of displayDashboardValues">
+            <mat-option #thisOption
+              class="dashboard-select-option"
+              *ngIf="+dashboardPosition.key > 0"
+              (click)="optionClick()"
+              [value]="dashboardPosition"
+              >
+              {{ dashboardPosition.viewValue }}
+            </mat-option>
+          </div>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <!-- Content -->
+    <div class="content-flows-in" *ngIf="selectedValues">
+      <div class="row" *ngFor="let selectedValue of selectedValues">
+        {{selectedValue['key']}}
+        {{selectedValue['valuePositionType']}}
+        <!-- Profit and Loss area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'profit-loss-area'">
+          <div>Test1</div>
+        </div>
+        <!-- Cash area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'cash-area'">
+          <div>Test2</div>
+        </div>
+        <!-- Balance area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'balance-area'">
+          <div>Test3</div>
+        </div>
+        <!-- Staff area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'staff-area'">
+          <div>Test4</div>
+        </div>
+        <!-- Divisions area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'divisions-area'">
+          <div>Test5</div>
+        </div>
+        <!-- Commisions area -->
+        <div class="col-md-12" *ngIf="selectedValue['valuePositionType'] === 'commisions-area'">
+          <div>Test6</div>
+        </div>
+      </div>
+    </div>
+    <app-option-select-all></app-option-select-all>
+    <!--
+    <div>
+      <app-option-groups></app-option-groups>
+    </div>
+
+    <div>
+      <app-disable-options></app-disable-options>
+    </div>
+
+
+    <div>
+      <p>
+        Using a select where the options are embedded inside a component. The
+        mat-select can't access the options,
+        <strong>the select is not working</strong>
+      </p>
+      <mat-form-field>
+        <mat-label>Accessibility</mat-label>
+        <mat-select [(ngModel)]="notWorking" placeholder="Accessibility" multiple>
+          <app-embedded-options-working></app-embedded-options-working>
+          <mat-option value="NOT EMBEDDED">Option not embedded</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p>Selected value: {{notWorking}}</p>
+    </div>
+  -->

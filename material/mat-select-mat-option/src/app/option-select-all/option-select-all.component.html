@@ -1,0 +1,9 @@
+<form [formGroup]="searchUserForm" fxFlex fxLayout="column" autocomplete="off" style="margin: 30px">
+	<mat-select #mySel placeholder="User Type" formControlName="userType" multiple>
+		<mat-option *ngFor="let filters of userTypeFilters" [value]="filters.key"
+    #thisItem (click)="togglePerOne(thisItem)">
+			{{filters.value}}
+		</mat-option>
+		<mat-option #allSelected (click)="toggleAllSelection()" [value]="0">All</mat-option>
+	</mat-select>
+</form>
