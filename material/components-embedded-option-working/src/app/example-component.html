@@ -1,0 +1,16 @@
+<div>
+  <p>
+    Using a select where the options are embedded inside a component. The
+    mat-select can't access the options,
+    <strong>the select is not working</strong>
+  </p>
+  <mat-form-field>
+    <mat-label>Accessibility</mat-label>
+    <mat-select [(ngModel)]="notWorking" placeholder="Accessibility">
+      <app-embedded-options-working></app-embedded-options-working>
+      <mat-option value="NOT EMBEDDED">Option not embedded</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p>Selected value: {{notWorking}}</p>
+</div>
