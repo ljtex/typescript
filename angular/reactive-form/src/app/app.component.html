@@ -1,0 +1,50 @@
+<div class="form">
+  <h2 id="registration">Reactive Form</h2>
+  <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="personalDetails">
+      <label for="fname">First Name</label>
+      <input type="text" id="fname" placeholder="Your first name.." formControlName="firstname">
+
+      <label for="lname">Last Name</label>
+      <input type="text" id="lname" placeholder="Your last name.." formControlName="lastname">
+
+      <label for="email">Email</label>
+      <input type="text" id="email" placeholder="Your email.." formControlName="email">
+
+      <div>
+        <span style="color: red"
+           *ngIf="!reactiveForm.get('personalDetails').get('email').valid
+               && !reactiveForm.get('personalDetails').get('email').untouched">The email you entered is not valid</span>
+      </div>
+
+    </div>
+    <label for="country">Country</label>
+    <select id="country" formControlName="country">
+      <option value="aus">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+      <option value="india">India</option>
+    </select>
+
+    <br>
+    <label for="gender">Gender:</label>
+    <input type="radio" id="male" value="male" formControlName="gender">
+    <label for="male">Male</label>
+
+    <input type="radio" id="female" value="female" formControlName="gender">
+    <label for="female">Female</label>
+
+    <input type="radio" id="other" value="other" formControlName="gender">
+    <label for="other">Other</label>
+
+    <br>
+    <label>Hobbies <i>(Optional)</i></label>
+    <div class="form-inline">
+      <label><input type="checkbox" value="sports" checked formControlName="hobbies"> Sports </label>
+      <label><input type="checkbox" value="movies" checked formControlName="hobbies"> Movies </label>
+      <label><input type="checkbox" value="music" checked formControlName="hobbies"> Music </label>
+    </div>
+
+    <input type="submit" value="Submit" id="btn">
+  </form>
+</div>
