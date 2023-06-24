@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "noEmit": false,
+    "sourceMap": false,
+    "types": [
+      "cypress"
+    ],
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "../../node_modules/cypress",
+    "./**/*.ts"
+  ]
+}
