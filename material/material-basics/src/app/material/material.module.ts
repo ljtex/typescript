@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -32,7 +34,9 @@ const MaterialComponents = [
   MatExpansionModule,
   MatSelectModule,
   MatTabsModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatCheckboxModule,
+  MatRadioModule
 ]
 
 @NgModule({

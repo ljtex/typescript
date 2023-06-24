@@ -23,6 +23,8 @@ import { CardComponent } from './card/card.component';
 import { SelectComponent } from './select/select.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { CheckboxsComponent } from './checkboxs/checkboxs.component';
+import { RadioComponent } from './radio/radio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,9 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     CardComponent,
     SelectComponent,
     TabsComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    CheckboxsComponent,
+    RadioComponent
   ],
   imports: [
     BrowserModule,
