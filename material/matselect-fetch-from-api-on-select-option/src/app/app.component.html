@@ -1,0 +1,51 @@
+
+<div class="wrapper">
+
+<div class="selectcontainer">
+
+
+<mat-form-field appearance="fill">
+
+  <mat-label>Album</mat-label>
+  <mat-select [(ngModel)]="albumSelected" (ngModelChange)="onAlbumselected($event)">
+    <mat-option *ngFor="let album of listAlbum" [value]="album.id">
+      {{album.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+
+<mat-form-field appearance="fill">
+
+  <mat-label>Photos</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let photo of listPhotos" [value]="photo.id">
+      {{photo.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div style="clear: both;"></div>
+</div>
+
+<div class="albumselected">
+  You have selected the album: {{albumSelected}}
+</div>
+
+<div class="selectresult">
+
+  <mat-card class="example-card" *ngFor="let photo of listPhotos">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Photo title: {{photo.title}}</mat-card-title>
+      <mat-card-subtitle>Album Id: {{photo.albumId}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="photo.thumbnailUrl" [alt]="photo.title">
+
+
+  </mat-card>
+
+</div>
+</div>
+
