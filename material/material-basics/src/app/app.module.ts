@@ -25,6 +25,9 @@ import { TabsComponent } from './tabs/tabs.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { CheckboxsComponent } from './checkboxs/checkboxs.component';
 import { RadioComponent } from './radio/radio.component';
+import { DialogboxComponent } from './dialogbox/dialogbox.component';
+import { DialogExampleComponent } from './dialog-example/dialog-example.component';
+import { ChipsInputComponent } from './chips-input/chips-input.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,13 +48,17 @@ import { RadioComponent } from './radio/radio.component';
     TabsComponent,
     AutocompleteComponent,
     CheckboxsComponent,
-    RadioComponent
+    RadioComponent,
+    DialogboxComponent,
+    DialogExampleComponent,
+    ChipsInputComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
