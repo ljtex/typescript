@@ -1,0 +1,16 @@
+<div class="main-container">
+  <h1>Please select a color</h1>
+  <div class="main-container-selector">
+    <mat-form-field appearance="fill">
+      <mat-label>Colors</mat-label>
+      <mat-select [formControl]="color" [compareWith]="compareColors">
+        <mat-option *ngFor="let c of colors" [value]="c">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+      <button (click)="navigate()">Next Page</button>
+  </div>
+</div>

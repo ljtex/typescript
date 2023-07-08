@@ -1,0 +1,28 @@
+<!--
+<app-select-search-dropdown
+  [label]="'Animals'"
+  [selectPlaceholder]="'Select Animal(s)'"
+  [options]="options"
+  [selected]="selectedOptions"
+  [extractValue]="'commonName'"
+  (selectedEvent)="multiSelect($event)"
+  [multiple]="true">
+</app-select-search-dropdown>
+
+<mat-label>Multi Select Event</mat-label>
+<pre>{{ multiSelectEvent | json }}</pre>
+
+<app-select-search-dropdown
+  [label]="'Animal'"
+  [selectPlaceholder]="'Select Animal'"
+  [options]="options"
+  [extractValue]="'commonName'"
+
+  (selectedEvent)="singleSelect($event)">
+</app-select-search-dropdown>
+
+<mat-label>Single Select Event</mat-label>
+<pre>{{ singleSelectEvent | json }}</pre>
+-->
+
+<router-outlet></router-outlet>
