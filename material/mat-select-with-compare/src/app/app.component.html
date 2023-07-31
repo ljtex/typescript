@@ -1,4 +1,7 @@
-<!--
+
+<router-outlet></router-outlet>
+
+
 <app-select-search-dropdown
   [label]="'Animals'"
   [selectPlaceholder]="'Select Animal(s)'"
@@ -9,7 +12,7 @@
   [multiple]="true">
 </app-select-search-dropdown>
 
-<mat-label>Multi Select Event</mat-label>
+<mat-label><h2>Multi Select Event</h2></mat-label>
 <pre>{{ multiSelectEvent | json }}</pre>
 
 <app-select-search-dropdown
@@ -17,12 +20,10 @@
   [selectPlaceholder]="'Select Animal'"
   [options]="options"
   [extractValue]="'commonName'"
-
+  [selected]="selectedOption"
   (selectedEvent)="singleSelect($event)">
 </app-select-search-dropdown>
 
 <mat-label>Single Select Event</mat-label>
 <pre>{{ singleSelectEvent | json }}</pre>
--->
 
-<router-outlet></router-outlet>

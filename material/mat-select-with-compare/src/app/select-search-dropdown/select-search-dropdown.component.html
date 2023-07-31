@@ -3,11 +3,19 @@
   <mat-label>
     {{ label }}
   </mat-label>
-  <mat-form-field [ngClass]="{ inactive: disableSelectSearch }" appearance="outline">
-    <mat-select (selectionChange)="optionSelected($event)"
-      [panelClass]="['new-select-design-panel', panelClass, scrollClass]" formControlName="SelectControl"
-      [disableOptionCentering]="true" [disabled]="disableSelectSearch" (openedChange)="openedChange($event)"
-      multiple="{{ multiple }}" [value]="selected" [placeholder]="selectPlaceholder" [compareWith]="compareWithFn">
+  <mat-form-field [ngClass]="{ inactive: disableSelectSearch }"
+      appearance="outline">
+    <mat-select
+      (selectionChange)="optionSelected($event)"
+      [panelClass]="['new-select-design-panel', panelClass, scrollClass]"
+      formControlName="SelectControl"
+      [disableOptionCentering]="true"
+      [disabled]="disableSelectSearch"
+      (openedChange)="openedChange($event)"
+      multiple="{{ multiple }}"
+      [value]="selected"
+      [placeholder]="selectPlaceholder"
+      [compareWith]="compareWithFn">
       <mat-select-trigger *ngIf="multiple">
         <span
           *ngIf="

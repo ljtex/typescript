@@ -96,7 +96,7 @@ export class SelectSearchDropdownComponent
 
   @Output() selectedEvent = new EventEmitter<any>();
   @Output() formValidEvent = new EventEmitter<boolean>();
-  @Input() selected?: any[];
+  @Input() selected?: any;
 
   // required Inputs
   @Input() label!: string;
@@ -109,7 +109,7 @@ export class SelectSearchDropdownComponent
   @Input() validationRequiredText = "This is a required field";
   @Input() selectPlaceholder = "Select One";
   @Input() extractValue?: string;
-  @Input() disableSelectSearch = false;
+  @Input() disableSelectSearch = true;
   @Input() searchPlaceholder = "Search";
   @Input() defaultOptionIndex = 0;
   @Input() panelClass = "";
