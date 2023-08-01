@@ -28,13 +28,15 @@ For me, number one rule of thumb to check whether my code is clean is to re-read
 
 ### Use meaningful variable names
 
-Distinguish names in such a way that the reader knows what the differences offer.
+Use variables names to help readers to understand the intension of the code, so to help them to understand the context and logic easier.
 
 **Bad:**
 
 ```ts
-function between<T>(a1: T, a2: T, a3: T): boolean {
-  return a2 <= a1 && a1 <= a3;
+function getNames(a: string[]): Array<string> {
+  const strs: string[] = [];
+  // get city names from 'a' and push to strs.
+  return strs;
 }
 
 ```
@@ -42,60 +44,20 @@ function between<T>(a1: T, a2: T, a3: T): boolean {
 **Good:**
 
 ```ts
-function between<T>(value: T, left: T, right: T): boolean {
-  return left <= value && value <= right;
+function getCityNames(stateCodes: string[]): Array<string> {
+  const allCityNames: string[] = [];
+  stateCodes.forEach ((s) => {
+    //... get city names for this state code and push to allCityNames
+
+  })
+  return allCityNames;
 }
 ```
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use pronounceable variable names
 
-If you can’t pronounce it, you can’t discuss it without sounding like an idiot.
-
-**Bad:**
-
-```ts
-type DtaRcrd102 = {
-  genymdhms: Date;
-  modymdhms: Date;
-  pszqint: number;
-}
-```
-
-**Good:**
-
-```ts
-type Customer = {
-  generationTimestamp: Date;
-  modificationTimestamp: Date;
-  recordId: number;
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Use the same vocabulary for the same type of variable
-
-**Bad:**
-
-```ts
-function getUserInfo(): User;
-function getUserDetails(): User;
-function getUserData(): User;
-```
-
-**Good:**
-
-```ts
-function getUser(): User;
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Use searchable names
-
-We will read more code than we will ever write. It's important that the code we do write must be readable and searchable. By *not* naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [ESLint](https://typescript-eslint.io/) can help identify unnamed constants (also known as magic strings and magic numbers).
+### Do not use magic numbers
 
 **Bad:**
 
@@ -111,53 +73,6 @@ setTimeout(restart, 86400000);
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000; // 86400000
 
 setTimeout(restart, MILLISECONDS_PER_DAY);
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Use explanatory variables
-
-**Bad:**
-
-```ts
-declare const users: Map<string, User>;
-
-for (const keyValue of users) {
-  // iterate through users map
-}
-```
-
-**Good:**
-
-```ts
-declare const users: Map<string, User>;
-
-for (const [id, user] of users) {
-  // iterate through users map
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Avoid Mental Mapping
-
-Explicit is better than implicit.
-*Clarity is king.*
-
-**Bad:**
-
-```ts
-const u = getUser();
-const s = getSubscription();
-const t = charge(u, s);
-```
-
-**Good:**
-
-```ts
-const user = getUser();
-const subscription = getSubscription();
-const transaction = charge(user, subscription);
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -191,29 +106,6 @@ type Car = {
 
 function print(car: Car): void {
   console.log(`${car.make} ${car.model} (${car.color})`);
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Use default arguments instead of short circuiting or conditionals
-
-Default arguments are often cleaner than short circuiting.
-
-**Bad:**
-
-```ts
-function loadPages(count?: number) {
-  const loadCount = count !== undefined ? count : 10;
-  // ...
-}
-```
-
-**Good:**
-
-```ts
-function loadPages(count: number = 10) {
-  // ...
 }
 ```
 
@@ -274,72 +166,6 @@ class Projector {
 
 ## Functions
 
-### Function arguments (2 or fewer ideally)
-
-Limiting the number of function parameters is incredibly important because it makes testing your function easier.
-Having more than three leads to a combinatorial explosion where you have to test tons of different cases with each separate argument.
-
-One or two arguments is the ideal case, and three should be avoided if possible. Anything more than that should be consolidated.
-Usually, if you have more than two arguments then your function is trying to do too much.
-In cases where it's not, most of the time a higher-level object will suffice as an argument.
-
-Consider using object literals if you are finding yourself needing a lot of arguments.
-
-To make it obvious what properties the function expects, you can use the [destructuring](https://basarat.gitbook.io/typescript/future-javascript/destructuring) syntax.
-This has a few advantages:
-
-1. When someone looks at the function signature, it's immediately clear what properties are being used.
-
-2. It can be used to simulate named parameters.
-
-3. Destructuring also clones the specified primitive values of the argument object passed into the function. This can help prevent side effects. Note: objects and arrays that are destructured from the argument object are NOT cloned.
-
-4. TypeScript warns you about unused properties, which would be impossible without destructuring.
-
-**Bad:**
-
-```ts
-function createMenu(title: string, body: string, buttonText: string, cancellable: boolean) {
-  // ...
-}
-
-createMenu('Foo', 'Bar', 'Baz', true);
-```
-
-**Good:**
-
-```ts
-function createMenu(options: { title: string, body: string, buttonText: string, cancellable: boolean }) {
-  // ...
-}
-
-createMenu({
-  title: 'Foo',
-  body: 'Bar',
-  buttonText: 'Baz',
-  cancellable: true
-});
-```
-
-You can further improve readability by using [type aliases](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases):
-
-```ts
-
-type MenuOptions = { title: string, body: string, buttonText: string, cancellable: boolean };
-
-function createMenu(options: MenuOptions) {
-  // ...
-}
-
-createMenu({
-  title: 'Foo',
-  body: 'Bar',
-  buttonText: 'Baz',
-  cancellable: true
-});
-```
-
-**[⬆ back to top](#table-of-contents)**
 
 ### Functions should do one thing
 
@@ -471,16 +297,6 @@ function parse(tokens: Token[]): SyntaxTree {
 
 ### Remove duplicate code
 
-Do your absolute best to avoid duplicate code.
-Duplicate code is bad because it means that there's more than one place to alter something if you need to change some logic.
-
-Imagine if you run a restaurant and you keep track of your inventory: all your tomatoes, onions, garlic, spices, etc.
-If you have multiple lists that you keep this on, then all have to be updated when you serve a dish with tomatoes in them.
-If you only have one list, there's only one place to update!
-
-Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.
-
-Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise, you'll find yourself updating multiple places anytime you want to change one thing.
 
 **Bad:**
 
@@ -678,116 +494,6 @@ function createTempFile(name: string) {
 
 function createFile(name: string) {
   fs.create(name);
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Avoid Side Effects (part 1)
-
-A function produces a side effect if it does anything other than take a value in and return another value or values.
-A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.
-
-Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file.
-What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file.
-Have one service that does it. One and only one.
-
-The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
-
-**Bad:**
-
-```ts
-// Global variable referenced by following function.
-let name = 'Robert C. Martin';
-
-function toBase64() {
-  name = btoa(name);
-}
-
-toBase64();
-// If we had another function that used this name, now it'd be a Base64 value
-
-console.log(name); // expected to print 'Robert C. Martin' but instead 'Um9iZXJ0IEMuIE1hcnRpbg=='
-```
-
-**Good:**
-
-```ts
-const name = 'Robert C. Martin';
-
-function toBase64(text: string): string {
-  return btoa(text);
-}
-
-const encodedName = toBase64(name);
-console.log(name);
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Avoid Side Effects (part 2)
-
-Browsers and Node.js process only JavaScript, therefore any TypeScript code has to be compiled before running or debugging.  In JavaScript, some values are unchangeable (immutable) and some are changeable (mutable). Objects and arrays are two kinds of mutable values so it's important to handle them carefully when they're passed as parameters to a function. A JavaScript function can change an object's properties or alter the contents of an array which could easily cause bugs elsewhere.
-
-Suppose there's a function that accepts an array parameter representing a shopping cart. If the function makes a change in that shopping cart array - by adding an item to purchase, for example - then any other function that uses that same `cart` array will be affected by this addition. That may be great, however it could also be bad. Let's imagine a bad situation:
-
-The user clicks the "Purchase" button which calls a `purchase` function that spawns a network request and sends the `cart` array to the server. Because of a bad network connection, the `purchase` function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks an "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because the `cart` array was modified.
-
-A great solution would be for the `addItemToCart` function to always clone the `cart`, edit it, and return the clone. This would ensure that functions that are still using the old shopping cart wouldn't be affected by the changes.
-
-Two caveats to mention to this approach:
-
-1. There might be cases where you actually want to modify the input object, but when you adopt this programming practice you will find that those cases are pretty rare. Most things can be refactored to have no side effects! (see [pure function](https://en.wikipedia.org/wiki/Pure_function))
-
-2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are [great libraries](https://github.com/immutable-js/immutable-js) that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
-
-**Bad:**
-
-```ts
-function addItemToCart(cart: CartItem[], item: Item): void {
-  cart.push({ item, date: Date.now() });
-};
-```
-
-**Good:**
-
-```ts
-function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
-  return [...cart, { item, date: Date.now() }];
-};
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-### Don't write to global functions
-
-Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
-
-**Bad:**
-
-```ts
-declare global {
-  interface Array<T> {
-    diff(other: T[]): Array<T>;
-  }
-}
-
-if (!Array.prototype.diff) {
-  Array.prototype.diff = function <T>(other: T[]): T[] {
-    const hash = new Set(other);
-    return this.filter(elem => !hash.has(elem));
-  };
-}
-```
-
-**Good:**
-
-```ts
-class MyArray<T> extends Array<T> {
-  diff(other: T[]): T[] {
-    const hash = new Set(other);
-    return this.filter(elem => !hash.has(elem));
-  };
 }
 ```
 
