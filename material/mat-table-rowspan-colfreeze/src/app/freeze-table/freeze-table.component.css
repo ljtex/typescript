@@ -1,0 +1,21 @@
+.app-table-wrapper {
+    overflow-x: scroll;
+  }
+  
+  .app-table {
+    font-size: 8px;
+  }
+  
+  .mat-cell {
+    padding: 10px;
+    border-right: 1px solid lightgrey;
+    text-align: center;
+    min-width: 100px;
+  }
+  
+  .mat-header-cell {
+    padding: 2px;
+    border-right: 1px solid lightgrey;
+    text-align: center;
+  }
+  

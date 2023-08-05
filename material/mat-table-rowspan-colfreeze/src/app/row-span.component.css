@@ -1,0 +1,30 @@
+h3 {
+  font-family: Verdana;
+}
+
+table {
+  width: 800px;
+}
+
+th {
+  vertical-align: center !important;
+  text-align: center !important;
+}
+
+td {
+  vertical-align: center !important;
+  text-align: center !important;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.rotate-value {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+.grey-background {
+  background: #f2f2f2 !important;
+}
