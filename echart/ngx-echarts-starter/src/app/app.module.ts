@@ -18,6 +18,7 @@ import {
   CanvasRenderer
 } from 'echarts/renderers';
 import Marcaron from './marcaron';
+import { UnittestComponent } from './components/unittest/unittest.component';
 
 echarts.use(
   [TitleComponent, TooltipComponent, GridComponent, LineChart, CanvasRenderer]
@@ -26,7 +27,8 @@ echarts.registerTheme('macarons', Marcaron);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UnittestComponent
   ],
   imports: [
     BrowserModule,
