@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 import { AppComponent } from './app.component';
 
-import * as echarts from 'echarts/core';
 import { LineChart } from 'echarts/charts';
 import {
   TitleComponent,
@@ -33,6 +33,7 @@ echarts.registerTheme('macarons', Marcaron);
   imports: [
     BrowserModule,
     NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
+    //NgxEchartsModule.forRoot({echarts,}),
     HttpClientModule
   ],
   providers: [],

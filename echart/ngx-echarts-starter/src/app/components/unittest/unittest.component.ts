@@ -32,7 +32,7 @@ files: any;
     public alert: AlertService,
     private translateFileService: TranslateFileService) {}
 
-  public onInputChange (search: string) {
+  public onInputChangeX (search: string) {
     const that = this;
     this.translateFileService.getVideoFiles(search)
         .then(files => (files.length) ? this.files = files : '')

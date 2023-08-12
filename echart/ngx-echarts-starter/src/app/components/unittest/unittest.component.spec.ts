@@ -38,11 +38,26 @@ describe('UnittestComponent', () => {
   });
 
 
+  it('should call the alert service when something wrong', fakeAsync(()=> {
+    spyOn(component.alert, 'error');
+    component.onInputChangeX('error');
+    fixture.whenStable().then((() => {
+      expect(component.alert.error).toHaveBeenCalledWith('an error occurred');
+    }))
+  }))
+
   it('should call the alert service in case something went wrong getting the list of files', fakeAsync(() => {
     spyOn(component.alert, 'error');
-    component.onInputChange('error');
+    component.onInputChangeX('error');
     tick();
     expect(component.alert.error).toHaveBeenCalledWith('an error occured');
+  }));
+
+  it('should get the list of files normally', fakeAsync(() => {
+    spyOn(component.alert, 'error');
+    component.onInputChangeX('svg');
+    tick();
+    expect(component.alert.error).not.toHaveBeenCalledWith('an error occured');
   }));
 
 
