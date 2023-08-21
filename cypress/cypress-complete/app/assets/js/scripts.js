@@ -45,6 +45,9 @@ $(() => {
     $(e.currentTarget).addClass('hidden')
   })
 
+  $('.dropdown-toggle').hover(() => {
+    $('li.active').addClass('open')
+  })
   // listen to contextmenu to demonstrate logic on right click command
   $('.rightclick-action-div').on('contextmenu', (e) => {
     $('.rightclick-action-input-hidden').removeClass('hidden').focus()
@@ -56,6 +59,7 @@ $(() => {
     $(e.currentTarget).addClass('focus')
     $(e.currentTarget).prev().css('color', 'orange')
   })
+
 
   // listen to blur to demonstrate logic on blur command
   $('.action-blur').on('blur', (e) => {
