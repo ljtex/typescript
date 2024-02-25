@@ -14,8 +14,23 @@ export class ProductEditComponent implements OnInit {
   pageTitle = 'Product Edit';
   errorMessage = '';
 
-  product: Product | undefined;
-  private dataIsValid: { [key: string] : boolean } = {};
+  //product: Product | undefined;
+  private dataIsValid: { [key: string] : boolean } | null = {};
+  private currentProduct!: Product | null;
+  private originalProduct!: Product | null;
+
+  get product(): Product  {
+    return this.currentProduct!;
+  }
+
+  set product(value: Product) {
+    this.currentProduct = value;
+    this.originalProduct = {...value};
+  }
+
+  get isDirty(): boolean {
+    return JSON.stringify(this.originalProduct) !== JSON.stringify(this.currentProduct);
+  }
 
   constructor(private productService: ProductService,
     private messageService: MessageService,
@@ -86,11 +101,17 @@ export class ProductEditComponent implements OnInit {
   isValid(path?: string): boolean {
     this.validate();
     if(path) {
-      return this.dataIsValid[path];
+      return this.dataIsValid![path];
     }
 
-    return (this.dataIsValid &&
-      Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+    return (this.dataIsValid! &&
+      Object.keys(this.dataIsValid).every(d => this.dataIsValid![d] === true));
+  }
+
+  reset(): void {
+    this.dataIsValid = null;
+    this.currentProduct = null;
+    this.originalProduct = null;
   }
 
   saveProduct(): void {
@@ -116,6 +137,7 @@ export class ProductEditComponent implements OnInit {
       this.messageService.addMessage(message);
     }
 
+    this.reset();
     // Navigate back to the product list
     this.router.navigate(['/products']);
   }
