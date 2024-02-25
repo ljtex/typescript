@@ -129,7 +129,7 @@ export class ProductEditComponent implements OnInit {
       this.dataIsValid['info'] = false;
     }
 
-    if(this.product?.category && this.product.category.length >= 2) {
+    if(this.product?.category && this.product.category.length >= 3) {
       this.dataIsValid['tags'] = true;
     } else {
       this.dataIsValid['tags'] = false;
