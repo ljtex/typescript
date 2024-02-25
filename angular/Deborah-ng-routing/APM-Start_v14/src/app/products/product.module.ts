@@ -14,12 +14,14 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'products', component: ProductListComponent },
-      { path: 'products/:id', component: ProductDetailComponent,
+      { path: 'products',
+        children: [
+          { path: '', component: ProductListComponent },
+          { path: ':id', component: ProductDetailComponent,
                           resolve: { resolvedData: ProductResolver } },
-      { path: 'products/:id/edit', component: ProductEditComponent,
+          { path: ':id/edit', component: ProductEditComponent,
                           resolve: { resolvedData: ProductResolver },
-              children: [
+            children: [
                 { path: '',
                   redirectTo: 'info',
                   pathMatch: 'full'
@@ -30,7 +32,10 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
                 { path: 'tags',
                   component: ProductEditTagsComponent
                 }
-              ] },
+              ]
+          }
+        ]
+      }
     ])
   ],
   declarations: [
