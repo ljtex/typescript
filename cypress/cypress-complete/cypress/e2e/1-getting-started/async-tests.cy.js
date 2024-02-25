@@ -6,8 +6,8 @@ context('First Test', () => {
       fetch('https://api.spacexdata.com/v3/missions')
         .then((res) => res.json())
         .then((data)=> {
-            // eslint-disable-next-line no-console
-            console.log(data)
+          // eslint-disable-next-line no-console
+          console.log(data)
         })
       console.log('test is finished')
     })
