@@ -15,7 +15,7 @@ export class AppComponent {
   @ViewChild('ageInput')
   age: ElementRef = undefined as any;
 
-  @ViewChild(DemoComponent, {static: true } ) demoComp: DemoComponent;
+  @ViewChild(DemoComponent, {static: true } ) demoComp: DemoComponent | undefined;
 
   calcAge() {
 
