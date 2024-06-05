@@ -15,7 +15,7 @@ export class AppComponent {
   email: string = '';
   gen:string = '';
   country: string = '';
-
+  hobbies: string[] = [];
   defaultGender = 'Female';
 
   gender = [
@@ -34,6 +34,7 @@ export class AppComponent {
     this.email = this.form.value.personDetails.email;
     this.gen = this.form.value.gender;
     this.country = this.form.value.country;
+    this.hobbies = this.form.value.hobbies;
 
     this.form.reset();
   }
@@ -60,7 +61,8 @@ export class AppComponent {
          firstname: 'John',
          lastname: 'Smith',
          email: 'abc@example.com'
-      }
+      },
+      hobbies: []
     })
     console.log(this.form.value.personDetails.firstname);
     console.log(this.form.value.personDetails.lastname);
