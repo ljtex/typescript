@@ -1,0 +1,20 @@
+{
+    "list": [
+        {
+            "id": 1,
+            "title": "Mouse",
+            "detail": "A computer mouse is a input device"
+        },
+        {
+            "id": 2,
+            "title": "Monitor",
+            "detail": "A computer monitor is a output devide"
+        },
+        {
+            "id": 3,
+            "title": "Keyboard",
+            "detail": "A computer keyboard is a peripheral input device"
+        }
+        
+    ]
+}
