@@ -16,7 +16,8 @@ export class ProductPageComponent {
     private productsService: ProductsService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     const productId = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -32,6 +33,7 @@ export class ProductPageComponent {
   }
 
   updateProduct(product: Product) {
+    console.log(`updateProduct: ${product}`);
     this.productsService.update(product).subscribe(this.goToProductsPage);
   }
 
