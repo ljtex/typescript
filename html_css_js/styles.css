@@ -1,0 +1,39 @@
+body {
+  background: beige;
+  /* //overflow: auto; */
+  height: 100%;
+}
+
+html {
+  height: 300%;
+}
+
+section {
+  width: 400px;
+  height: 480px;
+  margin: 30px;
+  padding: 15px;
+  background: lightgray;
+}
+
+p {
+  position: fixed;
+  width: 50%; /* == (50vw - (width of vertical scrollbar)) */
+  height: 50%; /* == (50vh - (height of horizontal scrollbar)) */
+  margin: 5%; /* == (5vw - (width of vertical scrollbar)) */
+  padding: 5%; /* == (5vw - (width of vertical scrollbar)) */
+  background: cyan;
+}
+
+.main-nav {
+  display: flex;
+  flex-flow: 1;
+  align-items: space-between;
+  column-gap: 2rem;
+  background-color: black;
+  color: wheat;
+}
+
+/* .content {
+  height: 100vh;
+} */

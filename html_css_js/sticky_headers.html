@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="styles1.css" rel="stylesheet"/>
+  <title>Sticky Position List</title>
+  <!-- from  https://www.youtube.com/watch?v=NzjU1GmKosQ
+   <style>
+    .list-header {
+      position: relative;
+    }
+    .list-header-child {
+        position: relative;
+    }
+
+    @supports (position: sticky) {
+        .list-header {
+        position: sticky;
+        top: 0;
+      }
+      .list-header-child {
+        position: sticky;
+        top: 42px;
+      }
+    }
+  </style> -->
+</head>
+<body>
+  <div class="container">
+    <div class="navs">Titles</div>
+    <div class="list">
+      <div class="list-group">
+        <div class="list-header">
+          A
+        </div>
+        <div class="list-content">
+          <div>Apple</div>
+          <div>Artichoke</div>
+          <div>Aardvark</div>
+          <div>Ant</div>
+          <div>Acorn</div>
+          <div class="list">
+            <div class="list-header-child">
+                Apple
+            </div>
+            <div class="list-content">
+                <div>A1</div>
+                <div>A2</div>
+  
+            </div>
+            
+          </div>
+          <div class="list">
+            <div class="list-header-child">
+                Banana
+            </div>
+            <div class="list-content">
+                <div>B1</div>
+                <div>B2</div>
+  
+            </div>
+            
+          </div>
+
+        </div>
+      <div class="list-group">
+        <div class="list-header">
+          B
+        </div>
+        <div class="list-content">
+          <div>Bird</div>
+          <div>Banana</div>
+          <div>Buzzard</div>
+          <div>Bee</div>
+          <div>Bacon</div>
+        </div>
+      </div>
+      <div class="list-group">
+        <div class="list-header">
+          C
+        </div>
+        <div class="list-content">
+          <div>Caramel</div>
+          <div>Cat</div>
+          <div>Candy</div>
+          <div>Coffee</div>
+        </div>
+      </div>
+      <div class="list-group">
+        <div class="list-header">
+          D
+        </div>
+        <div class="list-content">
+          <div>Dog</div>
+          <div>Date</div>
+          <div>Danish</div>
+          <div>Dandelion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+      
+      
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <!-- Side Links Only -->
+      <div class="side-links">
+        <a href="https://youtu.be/7Hl2qa7-Bfc" target="_blank" class="side-link side-link-youtube">
+          <i class="fab fa-youtube-square side-link-icon"></i>
+          <span class="side-link-text">View Tutorial</span>
+        </a>
+        <a href="https://github.com/WebDevSimplified" target="_blank" class="side-link side-link-github side-link-icon">
+          <i class="fab fa-github-square"></i>
+          <span class="side-link-text">View GitHub</span>
+        </a>
+        <a href="https://twitter.com/DevSimplified" target="_blank" class="side-link side-link-twitter">
+          <i class="fab fa-twitter-square side-link-icon"></i>
+          <span class="side-link-text">View Twitter</span>
+        </a>
+      </div>
+    </body>
+</html>
