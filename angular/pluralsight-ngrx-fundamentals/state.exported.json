@@ -1,0 +1,92 @@
+{
+    "monitorState": null,
+    "nextActionId": 5,
+    "stagedActionIds": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ],
+    "skippedActionIds": [],
+    "currentStateIndex": 4,
+    "isLocked": false,
+    "isPaused": false,
+    "actionsById": {
+        "0": {
+            "action": {
+                "type": "@ngrx/store/init"
+            },
+            "timestamp": 1738188965076,
+            "type": "PERFORM_ACTION"
+        },
+        "1": {
+            "action": {
+                "type": "@ngrx/store/update-reducers",
+                "features": [
+                    "products"
+                ]
+            },
+            "timestamp": 1738188965111,
+            "type": "PERFORM_ACTION"
+        },
+        "2": {
+            "action": {
+                "type": "[Products Page] Toggle Show Product Code"
+            },
+            "timestamp": 1738189311084,
+            "type": "PERFORM_ACTION"
+        },
+        "3": {
+            "action": {
+                "type": "@nrgx/store/init"
+            },
+            "timestamp": 1738189394593,
+            "type": "PERFORM_ACTION"
+        },
+        "4": {
+            "action": {
+                "type": "@nrgx/store/init"
+            },
+            "timestamp": 1738189402273,
+            "type": "PERFORM_ACTION"
+        }
+    },
+    "computedStates": [
+        {
+            "state": {
+                "products": {
+                    "showProductCode": true
+                }
+            }
+        },
+        {
+            "state": {
+                "products": {
+                    "showProductCode": true
+                }
+            }
+        },
+        {
+            "state": {
+                "products": {
+                    "showProductCode": false
+                }
+            }
+        },
+        {
+            "state": {
+                "products": {
+                    "showProductCode": false
+                }
+            }
+        },
+        {
+            "state": {
+                "products": {
+                    "showProductCode": false
+                }
+            }
+        }
+    ]
+}
