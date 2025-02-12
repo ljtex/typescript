@@ -34,13 +34,21 @@
     background-color: #DFDFDF;
     margin: 0;
     padding: 0;
-    height: 300%;
+    /* height: 300%; */
   }
   
   html {
     height: 100%;
   }
   
+  .top-container {
+    /* height: 200%; */
+    position: relative; 
+  }
+  .container {
+    /* height: 50%; */
+    position: relative;
+  }
   .navs {
     display: flex;
     height: 20px;
