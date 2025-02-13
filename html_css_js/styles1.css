@@ -17,7 +17,7 @@
   }
   
   .top-container {
-    /* height: 200%; */
+    /* height: 100%;  */
     position: relative; 
     height: 100vh;
   }
@@ -26,7 +26,7 @@
     position: relative;
     border: 2px solid blueviolet;
     margin: 5rem;
-    height: 60%;
+    height: 80%;
     width: 60%;
     background-color: greenyellow;
     overflow: auto;
@@ -57,6 +57,16 @@
     align-items: flex-start;
   }
   
+  .footer {
+    color: purple;
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://source.unsplash.com/g5Uh7nP60FA");
+    display: flex;
+    align-items: flex-start;
+  }
+  
   .main-nav {
     display: flex;
     width: 100%;
@@ -71,6 +81,9 @@
     flex-direction: column;
     justify-content: center;
     padding: 0px;
+    /* position:sticky;
+    top: 0;
+    background-color: wheat; */
   }
   
   .list-content {
@@ -83,12 +96,18 @@
   }
 
   .list-header-child {
-    z-index: 2;
+    z-index: 3;
     top: 70px;
   }
 
+  .list-header-grand-child {
+    z-index: 2;
+    top: 100px;
+  }
+
   .list-header,
-  .list-header-child {
+  .list-header-child,
+  .list-header-grand-child {
     background-color: #333;
     color: #00FF6C;
     padding: 10px;
