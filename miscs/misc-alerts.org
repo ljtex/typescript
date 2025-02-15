@@ -1,0 +1,224 @@
+* Alert UI overview
+** ngrx
+*** some points
+**** Why AlertFilterModificationAction action doesn't have an effect handler?
+Why doesn't 'AlertFilterModificationAction' action have an effect listener to listen to it? How does it trigger new HTTP requests to API?
+One possible reason is the AlertFilterModificationAction only changes the filter state in Store and doesn't trigger a server request immediately. However, whenever any action triggering a new API request, the new filter state will be combined in the request params and take effect. 
+But when one unselect (cross-out) a filter in the breadcrumbs, this action doesn't trigger effect action, how does the breadcrumbs get changed? -- why the certification-tab-service.service.ts get triggered?
+ 
+The logic is in the my-alerts-data.service.ts, the constructor subscribe to the 'filter$' and will dispatch AlertsMetricsLoadAction and AlertsGroupQueryLoadAction, which will trigger the update of the metrics and alerts groups...
+** mfe 
+* Authentication/Authorization
+** For normal run
+** For Cypress e2e
+*** auth and two accts: 
+cypress uses srv acct to login. the service acct is saved in auth vault token and be retrived in auth_utils.ts. The josh account is the emulation user.
+But 
+**** Q: why when running 'auth vault' command to get current x-vault-token, I need to provide my own username/password, not srvAcct's?
+This is to authorization to get srvAcct's info
+**** Steps to get it working
+***** First run 'auth vault' to get one's VAULT_TOKEN
+****** run 'auth vault'
+and provide one's mac passwd, the output includes token
+***** Change in vault_utils.ts
+"x-vault-token": process.env.VAULT_TOKEN,
+
+* To run alerts local UI against local API Work-Data-Quality-Alerts-API
+** API side changes
+*** To run alerts local API: use Idea to run
+**** Idea Run config
+Use this in VM:
+-Dserver.port=8082 -Djavax.net.ssl.trustStore=truststore/cacerts -Djavax.net.debug=ALL
+
+
+Put this line to 'Environment variables:'
+http.nonProxyHosts=secrets.fmr.com;spring.config.additional-location=/Users/a705278/projects/alerts/ap168154-Work-Data-Quality-Alerts-API/localDev.yaml
+**** local Yaml file
+#+begin_src
+
+aurora_pool_name: "AP145822-TP-CONN-POOL-AURORA"
+aurora_datasource_pwd: "Hered#2023"
+aurora_datasource_url: "jdbc:postgresql://ctgdb-aurora-cluster-trnplusd.ctgdb-dev.aws-nonprod.fmrcloud.com:5432/trnplusd"
+aurora_datasource_user: "srvap145822"
+roadmap_datasource_pwd: "postgres"
+roadmap_datasource_user: "appuser"
+app_security_jwks_url: https://kmaaspub-dev.fmr.com:8443/security-keyadmin/jwks?kid=DEV_ASYMMETRIC_KEY_CTG_AP168154
+app.security.jwksTrustedEndpoints:
+    - https://kmaaspub-dev.fmr.com:8443/security-keyadmin/jwks?kid=DEV_ASYMMETRIC_KEY_CTG_AP168154
+    - https://kmaaspub-dev.fmr.com:8443/security-keyadmin/jwks.json?kid=DEV_ASYMMETRIC_KEY_CTG_AP168154
+spring_profiles_active: local
+launch_darkly_sdk_key: sdk-b1b712c4-1d1a-4f15-9ae6-2f7eafb89996
+dx.client.id: "eELcgPcQNareyG7eAkYRzUdbJaFbOB52"
+dx.client.secret: "JKwHeavNN7uCsr2D"
+dx.token.url: "https://api-dev.fmr.com/security-oauth2/v2/token"
+FA_API_BASE_URL: 'https://api-stage.fmr.com/cfn-fidelity-associates/v1'
+send_alerts_email_subscription: '-'
+send_alerts_email_notification: '-'
+graph_client_id: db0a1b01-fec6-4bbb-9de3-af7a5bfc2a47
+graph_tenant_id: 7521acbc-a68c-41e5-a975-1cf83066dd19
+graph_scope: https://graph.microsoft.com/.default
+graph_authority: https://login.microsoftonline.com/7521acbc-a68c-41e5-a975-1cf83066dd19/oauth2/v2.0/token
+graph_username: srvAP145822@fmr.com
+graph_password: Tyqs6dARg2
+ESG_BASE_URL: ''
+AUTH_ISSUER: "https://sts.windows.net/7521acbc-a68c-41e5-a975-1cf83066dd19/"
+dataverse_appid_allowlist: ''
+WMSS_TOKEN_URL: "https://b2b-test.efidelity.com/fidelity-np-dev/edgemicro-auth/token?="
+WMSS_URL: https://api-dev.fmr.com/work-management-shared-services/v2/wmss/
+WMSS_CLIENT_ID: "72fPG34SYpJGY42m4dD9wFHf0o3DAyGQ"
+WMSS_SECRET: "NYi66NV1BPr4C6DF"
+agile.org.api.base.url: https://api-dev.fmr.com/cfn-fmr-agile-org/v2
+
+
+#+end_src
+*** To check local API using Swagger UI -- unlike T+ API swagger, no need for Authroize
+**** Swagger UI for local alerts API: http://localhost:[8081]/swagger-ui/index.html
+**** To get the Authorize token ???
+***** Can run alerts UI against local API and get any DevTools/Network request to find the Authorization: and get the Bearer <token>
+***** 
+** UI side changes
+*** to run alerts local UI against local API
+**** in ap145822-alerts-ui's src/environments.json file. 
+***** Change workDataQualityAlertsApiUrl
+"workDataQualityAlertsApiUrl": "http://localhost:8081",
+***** change the "apiBase" to "http://localhost:<port like 8081>" ???
+
+
+* To run TP service on local
+** spring.config.additional-location=/Users/a705278/projects/transparency/ap145822-transparency-plus-services/transplus_localDev.yaml
+environment vars:
+
+http.nonProxyHosts=secrets.fmr.com
+spring.config.additional-location=/Users/a705278/projects/transparency/ap145822-transparency-plus-services/transplus_localDev_Rui.yaml
+
+
+
+transplus_localDev.yaml
+#+begin_src
+
+  sf.datasource.user: "srvAP145822@FMR.COM"
+sf.datasource.pwd: "Tyqs6dARgNP"
+rds.datasource.user: trnplusd
+rds.datasource.pwd: tgk65Es5fNaD
+SF_URL: "jdbc:snowflake://FMRENTERPRISEUAT.us-east-1.snowflakecomputing.com/?warehouse=CTG_ITEC_TMDL_UAT_RPT_LG&db=CTG_ITEC_TMDL_UAT&schema=TMDL_KPI_METRIC_FRAMEWORK_C&proxyHost=http.proxy.fmr.com&proxyPort=8000&useProxy=true"
+SF_POOLNAME: "AP145822-TP-CONN-POOL-SF"
+RDS_URL: "jdbc:postgresql://ctgdb-pg-trnplusd.ctgdb-dev.aws-nonprod.fmrcloud.com:5432/trnplusd"
+RDS_POOLNAME: "AP145822-TP-CONN-POOL-RDS"
+ALLOW_ORIGINS: http://localhost:4200
+AUTH_ISSUER: "https://sts.windows.net/7521acbc-a68c-41e5-a975-1cf83066dd19/"
+AUTH_JWK_URL: "https://login.microsoftonline.com/7521acbc-a68c-41e5-a975-1cf83066dd19/discovery/v2.0/keys"
+
+REFRESH_CACHE_FOR_BUSINESSENTITIES: "-"
+REFRESH_CACHE_FOR_WORKSUMMARY: "-"
+REFRESH_CACHE_FOR_WORKLIST: "-"
+REFRESH_CACHE_FOR_USER_ALERTDETAILS: "-"
+REFRESH_CACHE_FOR_OBJECTIVES: "-"
+REFRESH_CACHE_FOR_KPIS: "-"
+REFRESH_CACHE_FOR_WORKHIERARCHY: "-"
+REFRESH_CACHE_FOR_WORKEPIC: "-"
+REFRESH_CACHE_FOR_FINANCE: "-"
+SKIP_STARTUP_CACHE_REFRESH: true
+FINANCIAL_SCHEMA: CTGDL_FIN_ACCT_UAT.EXPENSE_GC_C_PREPARED
+CHECK_FOR_DB_UPDATE: "-"
+USERS_PERMITTED_TO_EMULATE: "A726139,A726133,A726072,A726997,A726132,A726283,A726300,A726279,A728319,A727634,A731027,A732524,A406018,A580272,A691094,A507481,A697894,A533012,A712679,A567744,A699471,A436625,A702172,A535600,A701157,A699500,A400241,A684258,A647993,A664941,A725511,A659733,A697957,A697970,A712395,A424097"
+SF_DATA_CONFIG: "prd"
+RDS_DATA_CONFIG: "UAT"
+WFC_DATA_CONFIG: "UAT"
+sf.datasource.user.np: "srvAP145822@FMR.COM"
+sf.datasource.pwd.np: "Tyqs6dARgNP"
+sf.datasource.url.np: "jdbc:snowflake://fmrctg.us-east-1.snowflakecomputing.com/?warehouse=CTG_ITEC_TMDL_PRD_RPT_XL&db=CTG_ITEC_TMDL_PRD&schema=TMDL_KPI_METRIC_FRAMEWORK_C&proxyHost=http.proxy.fmr.com&proxyPort=8000&useProxy=true"
+#sf.datasource.url.np: "jdbc:snowflake://FMRENTERPRISEUAT.us-east-1.snowflakecomputing.com/?warehouse=CTG_ITEC_TMDL_UAT_RPT_XL&db=CTG_ITEC_TMDL_UAT&schema=TMDL_KPI_METRIC_FRAMEWORK_C&proxyHost=http.proxy.fmr.com&proxyPort=8000&useProxy=true"
+
+sf.datasource.poolname.np: "AP145822-TP-CONN-POOL-SF"
+#RDS_POOLNAME: "AP145822-TP-CONN-POOL-RDS"
+#sf.datasource.poolname.np: "AP145822-TP-CONN-POOL-SF"
+sf.datasource.user.prd: "-"
+sf.datasource.pwd.prd: "-"
+sf.datasource.url.prd: "-"
+sf.datasource.poolname.prd: "-"
+
+APP_VERSION: 1.0.0
+WFC_URL: "jdbc:oracle:thin:@pid1edbrpt.fmr.com:1521/wsd1"
+WFC_POOLNAME: AP145822-TP-CONN-POOL-wfc
+wfc.datasource.driverClassName: "oracle.jdbc.driver.OracleDriver"
+wfc.datasource.connectionTimeout: "60000"
+wfc.datasource.maximumPoolSize: "10"
+wfc.datasource.maxLifetime: "900000"
+
+# send_alerts_email_notification: "-"
+# notification_Recipient: jason.purdy@fmr.com
+# graph_testing: false
+graph.username: '-'
+graph.password: '-'
+# test_email_recipient: jason.purdy@fmr.com
+# dec_email_date: "2022-11-16"
+# cert_path: ./truststore/tp-aggregations-dev.ctgeksdev.aws-nonprod.fmrcloud.com
+SEND_ALERTS_EMAIL_NOTIFICATION: "-"
+ESG_BASE_URL: "https://esg-qa-oauth2-internal.fmr.com"
+NOTIFICATION_RECIPIENT: "a726132@fmr.com"
+GRAPH_TESTING: true
+TEST_EMAIL_RECIPIENT: "a726132@fmr.com"
+DEC_EMAIL_DATE: "2022-11-04"
+CERT_PATH: ./truststore/tp-aggregations-dev.ctgecsdev.aws-nonprod.fmrcloud.com.jks
+tmdl_schema: CTG_TECH_MGMT_DL_PREPARED.TMDL_AGILE_I
+AURORA_POOLNAME: "AP145822-TP-CONN-POOL-AURORA"
+wfc.api.base.url: "https://dit.api.workforce.fmr.com/"
+FA_API_BASE_URL: https://api-stage.fmr.com/cfn-fidelity-associates/v1
+send_alerts_email_subscription: 0 0/15 * * * *
+REDIS_CONFIG: "redis-disabled"
+ACCESS_GROUP_DISPLAY_NAME: AP145822_DEV
+AGILE_ORG_API_BASE_URL: "https://api-dev.fmr.com/cfn-fmr-agile-org/v2"
+dynamic_config_url: https://api-pi-dynconfig-np.fmr.com/platform-dyn-cfg/v1/config/artifacts/Transparency/dit
+digital_xchange_client_id: 65OC5YsVCDWGQYOeUcpTyC2fVzJx6DGd
+digital_xchange_token_url: https://b2b-igw.efidelity.com/fidelity-prd-live/edgemicro-auth-pi-v2-2/token
+java_opts: "-Xmx1G"
+AURORA_URL: jdbc:postgresql://ctgdb-aurora-cluster-trnpluss.ctgdb-dev.aws-nonprod.fmrcloud.com:5432/trnpluss
+AURORA_USER: "srvap145822"
+AURORA_PASSWORD: "Changeme#2023"
+access_group_display_name: AP145822_DEV
+WMSS_CLIENT_ID: "72fPG34SYpJGY42m4dD9wFHf0o3DAyGQ"
+WMSS_SECRET: ""
+wmss_token_url: "https://b2b-test.efidelity.com/fidelity-np-dev/edgemicro-auth/token?="
+wmss_url: "https://api-dev.fmr.com/work-management-shared-services/v2/wmss/"
+product_line_users: "srvAP148407DEV,A703914,A731475,A705278"
+
+
+#+end_src
+** to access the TPlus API swagger
+http://localhost:8080/transparencyplusservice/swagger-ui/index.html
+*** how to get the authorization token to do Authorize for this API?
+* What APIs does currently alerts UI access and what data UI get from these APIs
+** absURL: 
+*** from alert.service.ts ? removable?
+**** getBuAbbreviations$()
+*** from my-alerts-entity-hierarchy.service.ts
+**** loadData():
+/piHierarchyWithStats
+*** from app.service.ts
+**** getUserRoleDetails$()
+
+*** from feature-flag.service.ts  // move to tpApiUrl
+**** getFeatureFlags$(...)
+
+*** my-alerts-bu-abbreviations.service.ts
+**** getBuAbbreviation$(entityCode: string)
+** apiBase
+** apiUrl: toggle controlled to point to WSQA API or TP API
+** roadmapUrl:
+
+* Overview of Alerts
+** How are Alerts generated? The workflow to generate the alerts?
+*** Where are they saved and populated, if any?
+**** Or they are calculated results?
+*** The work flow to generate the alerts?
+** Database schema walk through 
+*** Tables/views and their purpose
+*** important API endpoints
+**  What's the kafka's role here?
+* serviceNow and JAAlign Integration Overview. Will we support this app in the future?
+JA event consumer workflows
+** ACRs/tokens to access different resources
+** local test run env
+** cleanup
+
+
